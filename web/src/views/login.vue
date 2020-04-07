@@ -7,14 +7,15 @@
                 <label>用户名：</label>    <el-input
                     placeholder="请输入用户名"
                     v-model="userName"
+                    @keyup.enter.native="login"
                     clearable>
                 </el-input>
             </div>
             <div class="loginBox-input">
-               <label >密码：</label> <el-input placeholder="请输入密码" v-model="passWord" show-password></el-input>
+               <label >密码：</label> <el-input  placeholder="请输入密码" v-model="passWord" show-password @keyup.enter.native="login"></el-input>
             </div>
             <div class="loginBox-btn">
-             <el-button type="primary" @click="login()">登陆</el-button> 
+             <el-button type="primary" @click="login()" >登陆</el-button> 
             </div>
         </div>
     </div>
@@ -53,7 +54,7 @@ export default {
                     if (res.data.status == 200) {
                         this.$store.commit('changeToken',{token: this.userName});
                         this.$router.push({
-                            path: '/home'
+                            path: '/'
                         });
                     }else{
                         this.$message.error('账号或者密码错误！');

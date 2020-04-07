@@ -4,6 +4,24 @@ const path = require('path');
 const fse = require('fs-extra');
 const send = require('koa-send');
 const glob = require("glob");
+// 登陆接口
+router.post('/api/login', async (ctx, next) => {
+    let name = ctx.request.body.userName;
+    let password = ctx.request.body.password;
+    let res = fs.readFileSync('./data/user.json', {encoding: 'utf-8'});
+    
+    let data = JSON.parse(res).filter(item => {
+        return item.userName === name && item.password === password
+    })[0];
+    console.log(data);
+    if(data) {
+        ctx.session.userInfo = name;
+        ctx.body = {status: 200, data: data, msg: "登陆成功！"}; 
+    }else{
+        
+        ctx.body = {status: 400, data: data, msg: "登陆失败！"}; 
+    }
+});
 // 文件上传方法1
 router.post('/api/uploadFile', async (ctx, next) => {
     const file = ctx.request.files.file;

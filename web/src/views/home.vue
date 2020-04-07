@@ -36,7 +36,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Mark from '@/components/mark.vue';
 // import qs from 'qs';
 export default {
@@ -59,10 +58,9 @@ export default {
     },
     methods: {
         getList(){
-            axios.get('/api/getFileList').then(res => {
+            this.$axios.get('/api/getFileList').then(res => {
                 if(res.data.status == 200) {
                     this.fileList = res.data.data;
-                    console.log(this.fileList);
                 }
             })
         },
@@ -81,7 +79,7 @@ export default {
                     }
                 }
             }
-            axios.post(`/api/uploadFile`,
+            this.$axios.post(`/api/uploadFile`,
                 form, config).then((res) => {
                 if (res.data.status === 'success') {
                     alert('上传成功')
@@ -102,7 +100,7 @@ export default {
                     }
                 }
             }
-            axios.post(`/api/upload`,
+            this.$axios.post(`/api/upload`,
                 form, config).then((res) => {
                 if (res.data.status === 'success') {
                     alert('上传成功')

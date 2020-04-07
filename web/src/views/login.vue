@@ -21,6 +21,8 @@
 </template>    
 
 <script>
+
+import qs from 'qs';
 export default {
     data(){
         return{
@@ -44,14 +46,21 @@ export default {
                 });
                 return false;
             }else{
-                if (this.userArr.includes(this.userName) && this.passWord == '123456') {
-                    this.$store.commit('changeToken',{token: this.userName});
-                    this.$router.push({
-                        path: '/home'
-                    });
-                }else{
-                    this.$message.error('账号或者密码错误！');
-                }
+                this.$axios.post('/api/login', qs.stringify({
+                    userName: this.userName,
+                    password: this.passWord
+                })).then(res => {
+                    if (res.data.status == 200) {
+                        this.$store.commit('changeToken',{token: this.userName});
+                        this.$router.push({
+                            path: '/home'
+                        });
+                    }else{
+                        this.$message.error('账号或者密码错误！');
+                    }
+                }).catch(err => {
+                    this.$message.error(err);
+                })
             }
         }
     }

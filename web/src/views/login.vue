@@ -54,7 +54,7 @@ export default {
                     if (res.data.status == 200) {
                         this.$store.commit('changeToken',{token: this.userName});
                         this.$router.push({
-                            path: '/'
+                            path: '/home'
                         });
                     }else{
                         this.$message.error('账号或者密码错误！');

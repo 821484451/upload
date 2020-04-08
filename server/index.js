@@ -8,7 +8,7 @@ const session = require('koa-session');
 app.keys =[ "venus key" ];
 const CONFIG = {
     key: 'koa:sess',
-    maxAge: 86400000,
+    maxAge: 3600000,
     autoCommit:true ,
     httpOnly: true,
 }

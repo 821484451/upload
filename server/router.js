@@ -4,6 +4,14 @@ const path = require('path');
 const fse = require('fs-extra');
 const send = require('koa-send');
 const glob = require("glob");
+// 是否登录接口
+router.post('/api/isLogin', async (ctx, next) => {
+    ctx.body = {
+        status: 200,
+        data: 0,
+        desc: "已登录"
+    }
+})
 // 登陆接口
 router.post('/api/login', async (ctx, next) => {
     let name = ctx.request.body.userName;
@@ -13,7 +21,6 @@ router.post('/api/login', async (ctx, next) => {
     let data = JSON.parse(res).filter(item => {
         return item.userName === name && item.password === password
     })[0];
-    console.log(data);
     if(data) {
         ctx.session.userInfo = name;
         ctx.body = {status: 200, data: data, msg: "登陆成功！"}; 

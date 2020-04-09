@@ -35,7 +35,12 @@ export default {
         isLogin(){
             // 判断是否登陆
             this.$axios.post('/api/isLogin').then(res => {
-                console.log(res);
+                if (res.data.status === 403) {
+                    this.$message({
+                        message: '未登录！',
+                        type: 'warning'
+                    });
+                }
             }).catch(err => {
                alert(err);
             })

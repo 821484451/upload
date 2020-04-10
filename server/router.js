@@ -86,6 +86,7 @@ router.get('/api/getFileList', async (ctx) => {
         desc: "访问成功！"
     };
 });
+// 以下是对数据库的操作：增删查改
 // 获取列表
 router.get('/api/userList', async (ctx) => {
     await querySql('select * from userList').then(res => {
@@ -97,6 +98,35 @@ router.get('/api/userList', async (ctx) => {
     }).catch(err => {
         console.log(err);
     });
+});
+
+// 增加数据
+router.post('/api/addUser', async (ctx) => {
+    let {userName, gender, age, adress, tel} = ctx.request.body;
+    await querySql(`INSERT INTO userList ( userName, gender, age, adress, tel, time) VALUES ( '${userName}', '${gender}', ${age}, '${adress}', '${tel}', '${new Date().getTime()}')`)
+        .then(res => {
+            ctx.body = {
+                status: 200,
+                desc: '添加成功！',
+                data: res
+            }
+        }).catch(err => {
+            console.log(err);
+        })
+});
+// 删除数据
+router.post('/api/del', async (ctx) => {
+    let { id } = ctx.request.body;
+    await querySql(`DELETE FROM userList WHERE id = ${id}`)
+        .then(res => {
+            ctx.body = {
+                status: 200,
+                desc: '删除成功！',
+                data: res
+            }
+        }).catch(err => {
+            console.log(err);
+        });
 })
 
 

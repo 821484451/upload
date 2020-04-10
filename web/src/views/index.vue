@@ -12,7 +12,7 @@
             </thead>
             <tbody>
                 <tr v-for="(item,index) in list" :key="index">
-                    <td>{{item.name}}</td>
+                    <td>{{item.userName}}</td>
                     <td>{{item.gender}}</td>
                     <td>{{item.age}}</td>
                     <td>{{item.grade}}</td>
@@ -34,12 +34,9 @@ export default {
     methods: {
         isLogin(){
             // 判断是否登陆
-            this.$axios.post('/api/isLogin').then(res => {
-                if (res.data.status === 403) {
-                    this.$message({
-                        message: '未登录！',
-                        type: 'warning'
-                    });
+            this.$axios.get('/api/userList').then(res => {
+                if (res.data.status === 200) {
+                    this.list = res.data.data;
                 }
             }).catch(err => {
                alert(err);
@@ -48,13 +45,7 @@ export default {
     },
     mounted(){
         this.isLogin();
-        this.$set(this.list, 0, {
-            name: '小明',
-            gender: '男',
-            age: '13',
-            grade: '三年级',
-            checked: false
-        })
+        
     }
 }
 </script>

@@ -1,3 +1,5 @@
+const querySql = require('./db');
+
 const router = require('koa-router')();
 const fs = require("fs");
 const path = require('path');
@@ -84,17 +86,18 @@ router.get('/api/getFileList', async (ctx) => {
         desc: "访问成功！"
     };
 });
+// 获取列表
+router.get('/api/userList', async (ctx) => {
+    await querySql('select * from userList').then(res => {
+        ctx.body = {
+            status: 200,
+            desc: '获取成功！',
+            data: res
+        }
+    }).catch(err => {
+        console.log(err);
+    });
+})
 
-// 文件下载1
-// router.get('/api/download2', async (ctx) =>{
-    
-//     let fileName = ctx.query.name;
-//     console.log(fileName);
-//     let downLoadPath2 = path.join(__dirname, 'public/');
-//     let info = fs.statSync(downLoadPath2 + `${fileName}`);
-//     let len =  info.size;
-//     ctx.set("Content-Length", len.toString());
-//     ctx.body = fs.createReadStream(downLoadPath2 + `${fileName}`, {encoding:'utf8'});
-// });
 
 module.exports = router;

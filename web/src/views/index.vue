@@ -1,5 +1,5 @@
 <template>
-   <div class="Index">
+   <div class="Index" @click="editData(null)">
         <h1 class="title">对于列表实现增删查改</h1>
         <h2>1.增加数据</h2>
         <div class="addBox">
@@ -31,33 +31,56 @@
             </el-input>
             <el-button type="primary" class="add" @click="addData">添加</el-button>
         </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>id</th>
-                    <th>姓名</th>
-                    <th>性别</th>
-                    <th>年龄</th>
-                    <th>地址</th>
-                    <th>电话</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(item,index) in list" :key="index">
-                    <td>
-                        <span v-if="idShow">{{item.id}}</span>
-                        <el-input v-model="item.id" v-else></el-input>
-                    </td>
-                    <td>{{item.userName}}</td>
-                    <td>{{item.gender}}</td>
-                    <td>{{item.age}}</td>
-                    <td>{{item.adress}}</td>
-                    <td>{{item.tel}}</td>
-                    <td><el-button @click="delData(item.id)" type="danger" icon="el-icon-delete" title="删除" circle></el-button></td>
-                </tr>
-            </tbody>
-        </table> 
+        <div class="tbBox">
+            <table @click.stop>
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>姓名</th>
+                        <th>性别</th>
+                        <th>年龄</th>
+                        <th>地址</th>
+                        <th>电话</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(item,index) in list" :key="index">
+                        <td>
+                            {{item.id}}
+                        </td>
+                        <td>
+                            <el-input v-model="item.userName" v-if="idShow == item.id"></el-input>
+                            <span v-else>{{item.userName}}</span>
+                        </td>
+                        <td>
+                            <el-input v-model="item.gender" v-if="idShow == item.id"></el-input>
+                            <span v-else>{{item.gender}}</span>
+                            
+                        </td>
+                        <td>
+                            <el-input v-model="item.age" v-if="idShow == item.id"></el-input>
+                            <span  v-else>{{item.age}}</span>
+                            
+                        </td>
+                        <td>
+                            <el-input v-model="item.adress" v-if="idShow == item.id"></el-input>
+                            <span v-else>{{item.adress}}</span>
+                        </td>
+                        <td>
+                            <el-input v-model="item.tel" v-if="idShow == item.id"></el-input>
+                            <span v-else>{{item.tel}}</span>
+                            
+                        </td>
+                        <td>
+                            <el-button @click="delData(item.id)" type="danger" icon="el-icon-delete" title="删除" circle></el-button>
+                            <el-button @click="editData(item.id)" type="primary" icon="el-icon-edit" title="编辑" circle></el-button>
+                            <el-button @click="saveData(item)" type="success" icon="el-icon-check" title="保存" circle></el-button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table> 
+        </div>
    </div> 
 </template>
 
@@ -72,7 +95,7 @@ export default {
             adress: '',
             tel: '',
             list: [],
-            idShow: true
+            idShow: null
         }
     },
     methods: {
@@ -158,6 +181,35 @@ export default {
             }).catch(err => {
                 alert(err);
             })
+        },
+        editData(id) {
+            if (id == this.idShow) {
+                this.idShow = null;
+                return false;
+            }
+            this.idShow = id;
+
+        },
+        saveData(item){
+            this.$axios.post('/api/edit', qs.stringify({
+                userName: item.userName,
+                age: item.age,
+                adress: item.adress,
+                gender: item.gender,
+                tel: item.tel,
+                id: item.id
+            })).then(res => {
+                if (res.data.status == 200) {
+                    this.$message({
+                        message: res.data.desc,
+                        type: 'success'
+                    });
+                    this.idShow = null;
+                    this.getData();
+                }
+            }).catch((err) => {
+                alert(err);
+            });
         }
     },
     mounted(){

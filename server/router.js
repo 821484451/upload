@@ -128,6 +128,18 @@ router.post('/api/del', async (ctx) => {
             console.log(err);
         });
 })
-
+// 更改数据
+router.post('/api/edit', async (ctx) => {
+    let { id, userName, gender, age, adress, tel } = ctx.request.body;
+    await querySql(`UPDATE userList SET userName='${userName}', age='${age}', adress='${adress}',gender='${gender}', tel='${tel}'  WHERE id= ${id}`).then(res => {
+        ctx.body = {
+            status: 200,
+            desc: '编辑成功！',
+            data: res
+        }
+    }).catch(err => {
+        console.log(err);
+    })
+})
 
 module.exports = router;

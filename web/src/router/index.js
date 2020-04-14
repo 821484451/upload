@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import HomePage from '../views/home.vue'
 import IndexPage from '../views/index.vue'
 import LoginPage from '../views/login.vue'
+import MarkPage from '../views/mark.vue'
 
 Vue.use(VueRouter)
 
@@ -12,7 +13,8 @@ const routes = [
     path: '/',
     name: 'Index',
     meta: {
-      requireAuth: true
+      requireAuth: true,
+      showActive: true
     },
     component: IndexPage
   },
@@ -20,7 +22,8 @@ const routes = [
     path: '/home',
     name: 'Home',
     meta: {
-      requireAuth: true
+      requireAuth: true,
+      showActive: true
     },
     component: HomePage
   },
@@ -28,9 +31,19 @@ const routes = [
     path: '/login',
     name: 'Login',
     meta: {
-      requireAuth: false
+      requireAuth: false,
+      showActive: false
     },
     component: LoginPage
+  },
+  {
+    path: '/mark',
+    name: 'Mark',
+    meta: {
+      requireAuth: false,
+      showActive: true
+    },
+    component: MarkPage
   }
 ];
 let baseUrl;
@@ -47,6 +60,9 @@ const router = new VueRouter({
   routes
 });
 
+router.beforeEach((to, from, next) =>{
+  next();
+})
 
 
 

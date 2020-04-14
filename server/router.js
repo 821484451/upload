@@ -73,11 +73,15 @@ router.get('/api/download', async (ctx) =>{
 router.get('/api/getFileList', async (ctx) => {
     let fileList = await glob.sync('public/*');
     let res = fileList.map((item, index) => {
+        
+        let info = fs.statSync(item);
+        let len =  info.size;
         return {
             fileName: item.replace('public/', ''),
             path: item,
             id: index,
-            process: 0
+            process: 0,
+            size: len
         }
     })
     ctx.body = {

@@ -7,11 +7,12 @@
         <input type="file" ref="upload1" @change="handleUpload1">
         <el-progress :text-inside="true" :stroke-width="24" :percentage="per1" status="exception"></el-progress>
         <h2>下载功能：(<span class="red">说明：列表的获取需要的是glob模块来遍历文件</span>)</h2>
-        <el-button type="primary" @click="getList">刷新列表</el-button> 
+        <el-button type="primary" style="width: 188px;" @click="getList">刷新列表</el-button> 
         <table>
             <thead>
                 <tr>
                     <th>文件名</th>
+                    <th>大小</th>
                     <th>文件路径</th>
                     <th>进度</th>
                     <th>操作</th>
@@ -20,6 +21,7 @@
             <tbody>
                 <tr v-for="(item, index) in fileList" :key="index">
                     <td>{{item.fileName}}</td>
+                    <td>{{Math.ceil(item.size/1024)}}&nbsp;kb</td>
                     <td>{{item.path}}</td>
                     <td>
                         <el-progress :text-inside="true" :stroke-width="24" :percentage="item.process" status="success"></el-progress>
@@ -30,13 +32,12 @@
                 </tr>
             </tbody>
         </table>
-        <h2>markdown:(<span class="red">利用marked模块做的仿照mardown功能，你可以在框中输入markdown语法</span>)</h2>
-        <Mark/>
+       
     </div>
 </template>
 
 <script>
-import Mark from '@/components/mark.vue';
+
 // import qs from 'qs';
 export default {
     data(){
@@ -49,9 +50,6 @@ export default {
             downloadProgress: 0,
             fileList: null
         }
-    },
-    components: {
-        Mark
     },
     mounted(){
         this.getList();
@@ -212,12 +210,15 @@ export default {
         width: 20%;
     }
     tr td:nth-child(2){
-        width: 30%;
+        width: 10%;
     }
     tr td:nth-child(3){
-        width: 40%;
+        width: 20%;
     }
     tr td:nth-child(4){
+        width: 40%;
+    }
+    tr td:nth-child(5){
         width: 10%;
     }
     

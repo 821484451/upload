@@ -11,6 +11,9 @@ Vue.config.productionTip = false;
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
+  store.commit('changeLoading', {
+    flag: true
+  });
   return config;
   
 }, function (error) {
@@ -20,7 +23,9 @@ axios.interceptors.request.use(function (config) {
 
 // 添加响应拦截器
 axios.interceptors.response.use(function (response) {
-
+  store.commit('changeLoading', {
+    flag: false
+  });
   // 请求如果报未登录，统一跳转路由
   if (response.data.status === 403) {
     router.push({

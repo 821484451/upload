@@ -54,7 +54,7 @@ export default {
                     if (res.data.status == 200) {
                         this.$store.commit('changeToken',{token: this.userName});
                         this.$router.push({
-                            path: '/home'
+                            path: '/'
                         });
                     }else{
                         this.$message.error('账号或者密码错误！');
@@ -63,7 +63,19 @@ export default {
                     this.$message.error(err);
                 })
             }
+        },
+        isLogin(){
+            this.$axios.post('/api/isLogin').then(res => {
+                if (res.data.status == 200) {
+                    this.$router.replace({
+                        path: '/'
+                    })
+                }
+            })
         }
+    },
+    mounted(){
+        this.isLogin();
     }
 }
 </script>

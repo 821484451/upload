@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="marked">
         <textarea  id="md" v-model="md" cols="30" rows="10"></textarea>
-        <div v-html="mark()">
+        <div v-html="mark()" class="markHtml">
         </div>
     </div>
 </template>
@@ -26,6 +26,18 @@ export default {
 }
 </script>
 
-<style lang="less">
-    
+<style lang="less" scoped>
+    .marked{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        textarea{
+            flex: 1;
+
+        }
+        .markHtml{
+            flex: 1;
+        }
+    }
+
 </style>

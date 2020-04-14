@@ -5,14 +5,21 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    token: null
+    token: null,
+    loadingFlag: false
   },
   mutations: {
     changeToken(state, option){
       state.token = option.token;
+    },
+    changeLoading(state, option){
+      state.loadingFlag = option.flag
     }
   },
   actions: {
+  },
+  getters: {
+    loadingFlag: state => state.loadingFlag
   },
   modules: {
   }

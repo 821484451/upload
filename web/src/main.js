@@ -5,6 +5,7 @@ import store from './store'
 import './plugins/element.js'
 import './assets/less/common.less'
 import axios from 'axios';
+import qs from 'qs';
 
 Vue.config.productionTip = false;
 
@@ -41,6 +42,7 @@ axios.interceptors.response.use(function (response) {
 });
 
 Vue.prototype.$axios = axios;
+Vue.prototype.$qs = qs;
 
 
 

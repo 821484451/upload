@@ -27,7 +27,8 @@
                         <el-progress :text-inside="true" :stroke-width="24" :percentage="item.process" status="success"></el-progress>
                     </td>
                     <td>
-                       <el-button type="primary" @click="downLoadProcess(item.fileName, item)">下载</el-button> 
+                       <el-button type="primary" @click="downLoadProcess(item.fileName, item)">下载</el-button>
+                       <el-button type="danger" @click="deleteFile(item.fileName)">删除</el-button>  
                     </td>
                 </tr>
             </tbody>
@@ -48,7 +49,7 @@ export default {
             per1: 0,
             fileName: '',
             downloadProgress: 0,
-            fileList: null
+            fileList: null,
         }
     },
     mounted(){
@@ -63,6 +64,7 @@ export default {
             })
         },
         handleUpload(){
+      
             this.file = this.$refs.upload.files[0];
             var form = new FormData()
             form.append('file', this.file)
@@ -74,6 +76,7 @@ export default {
                     this.per = (progressEvent.loaded / progressEvent.total * 100 | 0);
                     if (this.per === 100) {
                         this.getList();
+                        this.per = 0;
                     }
                 }
             }
@@ -85,6 +88,7 @@ export default {
             })
         },
         handleUpload1(){
+            this.per1 = 0;
             this.file1 = this.$refs.upload1.files[0];
             let form = new FormData();
             form.append('file', this.file1)
@@ -95,6 +99,7 @@ export default {
                     this.per1 = (progressEvent.loaded / progressEvent.total * 100 | 0);
                     if (this.per1 === 100) {
                         this.getList();
+                        this.per1 = 0;
                     }
                 }
             }
@@ -182,7 +187,28 @@ export default {
             };
             
             xhr.send();
-        }   
+        },
+        deleteFile(fileName){
+            this.$axios.post('/api/deleteFile',this.$qs.stringify({
+                fileName: fileName
+            })).then(res => {
+                if (res.status == 200) {
+                    this.$message({
+                        message: res.data.desc,
+                        type: 'success'
+                    });
+                    this.getList();
+                }else{
+                    this.$message({
+                        message: res.data.desc,
+                        type: 'warning'
+                    });
+                }
+            }).catch(err => {
+                alert(err);
+            })
+
+        } 
     }
     
 }
@@ -201,7 +227,7 @@ export default {
         border-collapse: collapse;
     }
     th, td{
-        padding: 10px;
+        padding: 5px;
         text-align: center;
         border-collapse: collapse;
         border: 1px solid #dddddd;
@@ -210,7 +236,7 @@ export default {
         background-color: #ccc;
     }
     tr td:nth-child(1){
-        width: 20%;
+        width: 15%;
     }
     tr td:nth-child(2){
         width: 10%;
@@ -222,7 +248,7 @@ export default {
         width: 40%;
     }
     tr td:nth-child(5){
-        width: 10%;
+        width: 15%;
     }
     
 </style>

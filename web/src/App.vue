@@ -6,7 +6,7 @@
     mode="horizontal"
     v-if="$route.meta.showActive"
     @select="handleSelect"
-    background-color="#409EFF"
+    background-color="#fff"
     text-color="#fff"
     active-text-color="#ffd04b">
       <el-menu-item index="1">

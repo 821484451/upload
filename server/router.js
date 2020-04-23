@@ -90,6 +90,23 @@ router.get('/api/getFileList', async (ctx) => {
         desc: "访问成功！"
     };
 });
+router.post('/api/deleteFile', async ctx => {
+    let { fileName } = ctx.request.body;
+    if (fileName) {
+        let res = fs.unlinkSync(`public/${fileName}`)
+        ctx.body = {
+            status: 200,
+            data: res ,
+            desc: '删除成功！'
+        }
+    }else{
+        ctx.body = {
+            status: 400,
+            data: '参数错误',
+            desc: '参数错误！'
+        }
+    }
+})
 // 以下是对数据库的操作：增删查改
 // 获取列表
 router.get('/api/userList', async (ctx) => {

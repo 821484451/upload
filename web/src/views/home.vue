@@ -64,7 +64,7 @@ export default {
             })
         },
         handleUpload(){
-      
+            this.per = 0;
             this.file = this.$refs.upload.files[0];
             var form = new FormData()
             form.append('file', this.file)
@@ -76,7 +76,7 @@ export default {
                     this.per = (progressEvent.loaded / progressEvent.total * 100 | 0);
                     if (this.per === 100) {
                         this.getList();
-                        this.per = 0;
+                        
                     }
                 }
             }
@@ -99,7 +99,6 @@ export default {
                     this.per1 = (progressEvent.loaded / progressEvent.total * 100 | 0);
                     if (this.per1 === 100) {
                         this.getList();
-                        this.per1 = 0;
                     }
                 }
             }

@@ -6,6 +6,7 @@ import IndexPage from '../views/index.vue'
 import LoginPage from '../views/login.vue'
 import MarkPage from '../views/mark.vue'
 
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -53,6 +54,8 @@ if (process.env.NODE_ENV == 'production'){
   baseUrl = ""; 
 }
 
+
+
 const router = new VueRouter({
   mode: 'history',
   base: baseUrl,
@@ -60,9 +63,6 @@ const router = new VueRouter({
   routes
 });
 
-router.beforeEach((to, from, next) =>{
-  next();
-})
 
 
 

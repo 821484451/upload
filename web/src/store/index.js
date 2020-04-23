@@ -17,6 +17,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    
   },
   getters: {
     loadingFlag: state => state.loadingFlag

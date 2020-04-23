@@ -8,6 +8,7 @@ import axios from 'axios';
 
 Vue.config.productionTip = false;
 
+
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
@@ -28,9 +29,9 @@ axios.interceptors.response.use(function (response) {
   });
   // 请求如果报未登录，统一跳转路由
   if (response.data.status === 403) {
-    router.push({
+    router.replace({
       path: '/login'
-    })
+    }).catch(err => err)
   }
   return response;
 }, function (error) {

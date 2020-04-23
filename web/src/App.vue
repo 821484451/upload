@@ -76,11 +76,22 @@ export default {
           });
           break;
         default:
-
       }
     }
   },
   mounted(){
+    switch(this.$router.history.current.path) {
+      case '/':
+        this.activeIndex = '1';
+        break;
+      case '/home':
+        this.activeIndex = '2';
+        break;
+      case '/mark':
+        this.activeIndex = '3';
+        break;
+      default:
+    }
   }
 }
 </script>

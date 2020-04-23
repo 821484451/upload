@@ -198,10 +198,13 @@ export default {
     }
     table{
         width: 100%;
+        border-collapse: collapse;
     }
     th, td{
         padding: 10px;
         text-align: center;
+        border-collapse: collapse;
+        border: 1px solid #dddddd;
     }
     thead tr{
         background-color: #ccc;

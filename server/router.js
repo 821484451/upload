@@ -145,5 +145,56 @@ router.post('/api/edit', async (ctx) => {
         console.log(err);
     })
 })
+// 输出markdown文件
+router.get('/api/markdown', async ctx => {
+    let { fileName } = ctx.query;
+    let markData = decodeURIComponent(ctx.query.markData);
+    let mdPath = './md/' + fileName;
+    // 删除md文件夹下所有文件
+    let fileList = await glob.sync('md/*');
+    fileList.forEach(item => {
+        fs.unlinkSync(item);
+    });
+    await fs.writeFileSync(mdPath, markData);
+    let info = fs.statSync(mdPath);
+    let len = info.size;
+    ctx.set("Content-Length", len.toString());
+    ctx.attachment(fileName);
+    await send(ctx,mdPath);
 
+})
+
+// 输出html
+router.get('/api/markdownTohtml', async ctx => {
+    let { fileName } = ctx.query;
+    let markData = decodeURIComponent(ctx.query.markData);
+    let mdPath = './mdTohtml/' + fileName;
+    // 删除md文件夹下所有文件
+    let fileList = await glob.sync('mdTohtml/*');
+    fileList.forEach(item => {
+        fs.unlinkSync(item);
+    });
+    let cssStr = fs.readFileSync('./assets/css/markdow.css', {
+        encoding: 'utf-8'
+    });
+    let htmlStr = `<html>
+        <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width,initial-scale=1.0">
+            <style>
+            ${cssStr}
+            </style>   
+        </head>
+        <body class="markdown-body">
+            ${markData}
+        </body>
+    </html>`
+    await fs.writeFileSync(mdPath, htmlStr);
+    let info = fs.statSync(mdPath);
+    let len = info.size;
+    ctx.set("Content-Length", len.toString());
+    ctx.attachment(fileName);
+    await send(ctx,mdPath);
+})
 module.exports = router;

@@ -1,26 +1,35 @@
 <template>
     <div class="marked">
-        <textarea  id="md" v-model="md" cols="30" rows="10"></textarea>
-        <div v-html="mark()" class="markHtml">
+        <textarea  id="md" v-model="mdData"  cols="30" rows="10"></textarea>
+        <div v-html="mark(mdData)" class="markHtml markdown-body">
         </div>
     </div>
 </template>
 
 <script>
+import 'github-markdown-css/github-markdown.css'
 import marked from 'marked'
 export default {
     data(){
         return {
-            md: "## 首页"
+            mdData: ''
         }
     },
+    props: [
+        'md'
+    ],
     methods: {
-        mark(){
-            return marked(this.md);
+        mark(mdStr){
+            return marked(mdStr);
+        }
+    },
+    watch: {
+        mdData(curVal) {
+            this.$emit('update:md', curVal)
         }
     },
     mounted(){
-
+        this.mdData = this.md;
     }
 
 }
@@ -39,5 +48,21 @@ export default {
             flex: 1;
         }
     }
-
+    .markdown-body {
+        box-sizing: border-box;
+        min-width: 200px;
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 45px;
+    }
+    #md{
+        font-size: 20px;
+        font-weight: bold;
+        padding: 15px;
+    }
+    @media (max-width: 767px) {
+        .markdown-body {
+            padding: 15px;
+        }
+    }
 </style>

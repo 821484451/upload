@@ -6,6 +6,7 @@ const path = require('path');
 const fse = require('fs-extra');
 const send = require('koa-send');
 const glob = require("glob");
+
 // 是否登录接口
 router.post('/api/isLogin', async (ctx, next) => {
     ctx.body = {
@@ -206,7 +207,7 @@ router.get('/api/markdownTohtml', async ctx => {
         <body class="markdown-body">
             ${markData}
         </body>
-    </html>`
+    </html>`;
     await fs.writeFileSync(mdPath, htmlStr);
     let info = fs.statSync(mdPath);
     let len = info.size;

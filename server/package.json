@@ -12,6 +12,7 @@
   "dependencies": {
     "fs-extra": "^8.1.0",
     "glob": "^7.1.6",
+    "html-to-pdf": "^0.1.11",
     "koa": "^2.11.0",
     "koa-body": "^4.1.1",
     "koa-router": "^8.0.8",

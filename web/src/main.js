@@ -6,6 +6,10 @@ import './plugins/element.js'
 import './assets/less/common.less'
 import axios from 'axios';
 import qs from 'qs';
+import 'viewerjs/dist/viewer.css'
+import Viewer from 'v-viewer'
+
+Vue.use(Viewer)
 
 Vue.config.productionTip = false;
 

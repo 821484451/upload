@@ -18,6 +18,9 @@
       <el-menu-item index="3">
         markdown
       </el-menu-item>
+      <el-menu-item index="4">
+        lover
+      </el-menu-item>
     </el-menu>
     <router-view></router-view>
     
@@ -73,6 +76,11 @@ export default {
         case 3:
           this.$router.push({
             path: '/mark'
+          });
+          break;
+        case 4:
+          this.$router.push({
+            path: '/lover'
           });
           break;
         default:

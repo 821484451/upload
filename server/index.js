@@ -29,7 +29,7 @@ app.use(async (ctx, next) => {
 });
 
 const static = require('koa-static');
-app.use(koaStatic(path.join(__dirname,'./public')));
+app.use(koaStatic(path.join(__dirname,'./assets')));
 app.use(koaBody({
     multipart: true,
     strict: false,//解析所有请求

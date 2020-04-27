@@ -5,6 +5,7 @@ import HomePage from '../views/home.vue'
 import IndexPage from '../views/index.vue'
 import LoginPage from '../views/login.vue'
 import MarkPage from '../views/mark.vue'
+import LoverPage from '../views/lover.vue'
 
 
 Vue.use(VueRouter)
@@ -45,6 +46,15 @@ const routes = [
       showActive: true
     },
     component: MarkPage
+  },
+  {
+    path: '/lover',
+    name: 'Lover',
+    meta: {
+      requireAuth: false,
+      showActive: true
+    },
+    component: LoverPage
   }
 ];
 let baseUrl;

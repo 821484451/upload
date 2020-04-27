@@ -6,6 +6,7 @@ const path = require('path');
 const fse = require('fs-extra');
 const send = require('koa-send');
 const glob = require("glob");
+const htmlToPdf = require('html-to-pdf');
 
 // 是否登录接口
 router.post('/api/isLogin', async (ctx, next) => {
@@ -214,5 +215,22 @@ router.get('/api/markdownTohtml', async ctx => {
     ctx.set("Content-Length", len.toString());
     ctx.attachment(fileName);
     await send(ctx,mdPath);
+});
+
+// 获取图片列表
+router.get('/api/imgList', async ctx => {
+    let imgList = await glob.sync('./assets/img/*');
+    let resList = imgList.map(item => {
+        let imgName = item.split('/')[3];
+        return {
+            name: imgName,
+            src: `/img/${imgName}`
+        }
+    });
+    ctx.body = {
+        status: 200,
+        desc: '请求成功！',
+        data: resList
+    };
 })
 module.exports = router;

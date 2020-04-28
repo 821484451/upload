@@ -36,6 +36,9 @@ router.post('/api/login', async (ctx, next) => {
 router.post('/api/uploadFile', async (ctx, next) => {
     const file = ctx.request.files.file;
     const reader = fs.createReadStream(file.path);
+    if (!fs.existsSync('./public/')) {
+        fs.mkdirSync('./public/')
+    };
     let filePath = path.join(__dirname, 'public/') + `/${file.name}`;
     // 创建可写流
     const upStream = fs.createWriteStream(filePath);
@@ -50,6 +53,9 @@ router.post('/api/uploadFile', async (ctx, next) => {
 });
 // 文件上传方法2
 router.post('/api/upload', async (ctx, next) => {
+    if (!fs.existsSync('./public/')) {
+        fs.mkdirSync('./public/')
+    };
     const rFile = ctx.request.files.file;
     let oldPath = rFile.path;
     let newPath = path.join(__dirname, 'public/') + `/${rFile.name}`;
@@ -72,6 +78,9 @@ router.get('/api/download', async (ctx) =>{
 });
 // 获取文件列表
 router.get('/api/getFileList', async (ctx) => {
+    if (!fs.existsSync('./public/')) {
+        fs.mkdirSync('./public/')
+    };
     let fileList = await glob.sync('public/*');
     let res = fileList.map((item, index) => {
         
@@ -167,6 +176,9 @@ router.post('/api/edit', async (ctx) => {
 router.get('/api/markdown', async ctx => {
     let { fileName } = ctx.query;
     let markData = decodeURIComponent(ctx.query.markData);
+    if (!fs.existsSync('./md/')) {
+        fs.mkdirSync('./md/')
+    };
     let mdPath = './md/' + fileName;
     // 删除md文件夹下所有文件
     let fileList = await glob.sync('md/*');
@@ -186,6 +198,9 @@ router.get('/api/markdown', async ctx => {
 router.get('/api/markdownTohtml', async ctx => {
     let { fileName } = ctx.query;
     let markData = decodeURIComponent(ctx.query.markData);
+    if (!fs.existsSync('./md/')) {
+        fs.mkdirSync('./md/')
+    };
     let mdPath = './md/' + fileName;
     // 删除md文件夹下所有文件
     let fileList = await glob.sync('md/*');

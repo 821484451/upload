@@ -6,7 +6,6 @@ const path = require('path');
 const fse = require('fs-extra');
 const send = require('koa-send');
 const glob = require("glob");
-const htmlToPdf = require('html-to-pdf');
 
 // 是否登录接口
 router.post('/api/isLogin', async (ctx, next) => {
@@ -187,9 +186,9 @@ router.get('/api/markdown', async ctx => {
 router.get('/api/markdownTohtml', async ctx => {
     let { fileName } = ctx.query;
     let markData = decodeURIComponent(ctx.query.markData);
-    let mdPath = './mdTohtml/' + fileName;
+    let mdPath = './md/' + fileName;
     // 删除md文件夹下所有文件
-    let fileList = await glob.sync('mdTohtml/*');
+    let fileList = await glob.sync('md/*');
     fileList.forEach(item => {
         fs.unlinkSync(item);
     });

@@ -236,8 +236,8 @@ router.get('/api/imgList', async ctx => {
     if (ctx.session.userInfo.power == 0) {
         ctx.body = {
             status: 405,
-            desc: '对不起，你不权限访问！',
-            data: '对不起，你不权限访问！'
+            desc: '对不起，你无权限访问！',
+            data: '对不起，你无权限访问！'
         };
         return 
     }

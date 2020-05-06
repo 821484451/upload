@@ -98,6 +98,9 @@ export default {
       case '/mark':
         this.activeIndex = '3';
         break;
+      case '/lover':
+        this.activeIndex = '4';
+        break;
       default:
     }
   }

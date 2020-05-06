@@ -1,1 +1,1 @@
-[{"userName": "xing", "password": "123456"},{"userName": "mei", "password": "123456"},{"userName": "other", "password": "123456"}]
+[{"userName": "xing", "password": "123456", "power": 1},{"userName": "mei", "password": "123456", "power": 1},{"userName": "other", "password": "123456","power": 0}]

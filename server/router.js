@@ -25,7 +25,7 @@ router.post('/api/login', async (ctx, next) => {
         return item.userName === name && item.password === password
     })[0];
     if(data) {
-        ctx.session.userInfo = name;
+        ctx.session.userInfo = data;
         ctx.body = {status: 200, data: data, msg: "登陆成功！"}; 
     }else{
         
@@ -233,6 +233,14 @@ router.get('/api/markdownTohtml', async ctx => {
 
 // 获取图片列表
 router.get('/api/imgList', async ctx => {
+    if (ctx.session.userInfo.power == 0) {
+        ctx.body = {
+            status: 405,
+            desc: '对不起，你不权限访问！',
+            data: '对不起，你不权限访问！'
+        };
+        return 
+    }
     let imgList = await glob.sync('./assets/img/*');
     let resList = imgList.map(item => {
         let imgName = item.split('/')[3];

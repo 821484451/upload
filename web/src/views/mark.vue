@@ -26,6 +26,9 @@ export default {
         Mark
     },
     methods: {
+        isLogin(){
+            this.$axios.post('/api/isLogin')
+        },
         downloadMd(){
             let self = this;
             self.progress = 0;
@@ -106,7 +109,7 @@ export default {
         }
     },
     mounted(){
-
+        this.isLogin();
     }
 }
 </script>

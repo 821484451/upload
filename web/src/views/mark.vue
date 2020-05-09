@@ -31,8 +31,8 @@ export default {
             self.progress = 0;
             let fileName = this.fileName + '.md';
             let xhr = new XMLHttpRequest();
-            let url = encodeURI("/api/markdown?markData=" + encodeURIComponent(self.md) +"&fileName=" + fileName)
-            xhr.open('GET', url, true);
+            let url = "/api/markdown"
+            xhr.open('POST', url, true);
 
             xhr.addEventListener("progress", function(evt){
                 if (evt.lengthComputable) {
@@ -59,16 +59,19 @@ export default {
                         window.open(URL.createObjectURL(file));
                     }
                 }
-            }
-            xhr.send();
+            };
+            let formData = new FormData();
+            formData.append('markData',encodeURIComponent(self.md));
+            formData.append('fileName', fileName);
+            xhr.send(formData);
         },
         downloadHtml(){
             let self = this;
             self.progress = 0;
             let fileName = this.fileName + '.html';
             let xhr = new XMLHttpRequest();
-            let url = encodeURI("/api/markdownTohtml?markData=" + encodeURIComponent(marked(self.md)) +"&fileName=" + fileName)
-            xhr.open('GET', url, true);
+            let url = "/api/markdownTohtml";
+            xhr.open('POST', url, true);
 
             xhr.addEventListener("progress", function(evt){
                 if (evt.lengthComputable) {
@@ -96,7 +99,10 @@ export default {
                     }
                 }
             }
-            xhr.send();
+            let formData = new FormData();
+            formData.append('markData',encodeURIComponent(marked(self.md)));
+            formData.append('fileName', fileName);
+            xhr.send(formData);
         }
     },
     mounted(){

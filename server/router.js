@@ -173,9 +173,9 @@ router.post('/api/edit', async (ctx) => {
     })
 })
 // 输出markdown文件
-router.get('/api/markdown', async ctx => {
-    let { fileName } = ctx.query;
-    let markData = decodeURIComponent(ctx.query.markData);
+router.post('/api/markdown', async ctx => {
+    let { fileName } = ctx.request.body;
+    let markData = decodeURIComponent(ctx.request.body.markData);
     if (!fs.existsSync('./md/')) {
         fs.mkdirSync('./md/')
     };
@@ -195,9 +195,9 @@ router.get('/api/markdown', async ctx => {
 })
 
 // 输出html
-router.get('/api/markdownTohtml', async ctx => {
-    let { fileName } = ctx.query;
-    let markData = decodeURIComponent(ctx.query.markData);
+router.post('/api/markdownTohtml', async ctx => {
+    let { fileName } = ctx.request.body;
+    let markData = decodeURIComponent(ctx.request.body.markData);
     if (!fs.existsSync('./md/')) {
         fs.mkdirSync('./md/')
     };

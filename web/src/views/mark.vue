@@ -32,7 +32,7 @@ export default {
         downloadMd(){
             let self = this;
             self.progress = 0;
-            let fileName = this.fileName + '.md';
+            let fileName = (this.fileName ? this.fileName : 'aa') + '.md';
             let xhr = new XMLHttpRequest();
             let url = "/api/markdown"
             xhr.open('POST', url, true);

@@ -118,6 +118,7 @@ export default {
             label{
                 width: 170px;
                 text-align: right;
+                line-height: 40px;
             }
            
         }

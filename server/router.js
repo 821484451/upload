@@ -68,7 +68,6 @@ router.post('/api/upload', async (ctx, next) => {
 // 文件下载1
 router.get('/api/download', async (ctx) =>{
     const name = ctx.query.name;
-    console.log(name);
     const downLoadPath =  `./public/${name}`;
     let info = fs.statSync(downLoadPath);
     let len =  info.size;
@@ -254,5 +253,13 @@ router.get('/api/imgList', async ctx => {
         desc: '请求成功！',
         data: resList
     };
+})
+
+router.get('/api/logout', async ctx => {
+    ctx.session = {};
+    ctx.body = {
+        status: 200,
+        desc: '退出登录成功！'
+    }
 })
 module.exports = router;

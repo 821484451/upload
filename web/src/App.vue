@@ -1,10 +1,11 @@
 <template>
   <div id="app">
+    <div v-if="$route.meta.showActive"> 
     <el-menu
     :default-active="activeIndex"
     class="el-menu-demo"
     mode="horizontal"
-    v-if="$route.meta.showActive"
+    v-if="$route.meta.showActive || true"
     @select="handleSelect"
     background-color="#409eff"
     text-color="#fff"
@@ -21,8 +22,13 @@
       <el-menu-item index="4">
         lover
       </el-menu-item>
+      <el-button type="danger" @click="logOut" class="logoutText">  退出登录</el-button>
     </el-menu>
-    <router-view></router-view>
+    </div>
+    <div class="content">
+      <router-view></router-view>
+    </div>
+    
     
   </div>
 </template>
@@ -40,7 +46,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'loadingFlag'
+      'loadingFlag',
+      'hideFlag'
     ])
   },
   watch: {
@@ -75,7 +82,7 @@ export default {
           break;
         case 3:
           this.$router.push({
-            path: '/mark'
+            path: '/markDown'
           });
           break;
         case 4:
@@ -85,6 +92,19 @@ export default {
           break;
         default:
       }
+    },
+    logOut(){
+      this.$axios.get('/api/logout').then(res => {
+          if (res.data.status === 200) {
+            this.$message({
+              message: '退出登陆成功！',
+              type: 'success'
+            });
+            this.$router.push('/login');
+          }
+      }).catch(err => {
+          alert(err);
+      })
     }
   },
   mounted(){
@@ -117,9 +137,18 @@ html, body{
   height: 100%;
   display: flex;
   flex-direction: column;
-  &-content{
+  & > .content{
     flex: 1;
     overflow-x: hidden;
   }
+}
+.el-menu-demo {
+  position: relative;
+}
+.logoutText{
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 </style>

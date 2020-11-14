@@ -10,67 +10,75 @@ import LoverPage from '../views/lover.vue'
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
-    path: '/',
-    name: 'Index',
-    meta: {
-      requireAuth: true,
-      showActive: true
+const routes = [{
+        path: '/',
+        name: 'Index',
+        meta: {
+            requireAuth: true,
+            showActive: true
+        },
+        component: IndexPage
     },
-    component: IndexPage
-  },
-  {
-    path: '/home',
-    name: 'Home',
-    meta: {
-      requireAuth: true,
-      showActive: true
+    {
+        path: '/home',
+        name: 'Home',
+        meta: {
+            requireAuth: true,
+            showActive: true
+        },
+        component: HomePage
     },
-    component: HomePage
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    meta: {
-      requireAuth: false,
-      showActive: false
+    {
+        path: '/login',
+        name: 'Login',
+        meta: {
+            requireAuth: false,
+            showActive: false
+        },
+        component: LoginPage
     },
-    component: LoginPage
-  },
-  {
-    path: '/mark',
-    name: 'Mark',
-    meta: {
-      requireAuth: false,
-      showActive: true
+    {
+        path: '/markDown',
+        name: 'Mark',
+        meta: {
+            requireAuth: false,
+            showActive: true
+        },
+        component: MarkPage
     },
-    component: MarkPage
-  },
-  {
-    path: '/lover',
-    name: 'Lover',
-    meta: {
-      requireAuth: false,
-      showActive: true
+    {
+        path: '/lover',
+        name: 'Lover',
+        meta: {
+            requireAuth: false,
+            showActive: true
+        },
+        component: LoverPage
     },
-    component: LoverPage
-  }
+    {
+        path: '/map',
+        name: 'Map',
+        meta: {
+            requireAuth: false,
+            showActive: true
+        },
+        component: import ('../views/map.vue')
+    }
 ];
 let baseUrl;
-if (process.env.NODE_ENV == 'production'){
-  baseUrl = "/study"; 
-}else{
-  baseUrl = ""; 
+if (process.env.NODE_ENV == 'production') {
+    baseUrl = "/study";
+} else {
+    baseUrl = "";
 }
 
 
 
 const router = new VueRouter({
-  mode: 'history',
-  base: baseUrl,
-  // base: process.env.BASE_URL,
-  routes
+    mode: 'history',
+    base: baseUrl,
+    // base: process.env.BASE_URL,
+    routes
 });
 
 

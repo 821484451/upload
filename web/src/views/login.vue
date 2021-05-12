@@ -1,6 +1,6 @@
 <template>
     <div class="login">
-        <h1>星梅系统</h1>
+        <h1>仅供学习的网站</h1>
         <div class="loginBox">
             <h5>登陆</h5>
             <div class="loginBox-input">

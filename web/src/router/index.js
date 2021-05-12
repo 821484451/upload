@@ -54,15 +54,6 @@ const routes = [{
             showActive: true
         },
         component: LoverPage
-    },
-    {
-        path: '/map',
-        name: 'Map',
-        meta: {
-            requireAuth: false,
-            showActive: true
-        },
-        component: import ('../views/map.vue')
     }
 ];
 let baseUrl;

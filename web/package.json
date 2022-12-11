@@ -13,7 +13,7 @@
     "element-ui": "^2.4.5",
     "github-markdown-css": "^4.0.0",
     "marked": "^0.8.0",
-    "qs": "^6.9.3",
+    "qs": "^6.5.3",
     "v-viewer": "^1.5.1",
     "vue": "^2.6.11",
     "vue-router": "^3.1.5",
